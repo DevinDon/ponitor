@@ -30,7 +30,10 @@
   "author": "IInfinity <I.INF@Outlook.com> (https://blog.don.red/)",
   "license": "MIT",
   "private": false,
-  "dependencies": {},
+  "dependencies": {
+    "@iinfinity/logger": "0.3.3",
+    "systeminformation": "4.24.1"
+  },
   "devDependencies": {
     "@types/jasmine": "3.5.10",
     "@types/node": "13.13.2",
