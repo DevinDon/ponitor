@@ -35,7 +35,7 @@ export class NetworkMonitor {
     };
   }
 
-  private handle(data: string) {
+  private async handle(data: string) {
 
     // total++
     this.times.total++;
@@ -51,19 +51,21 @@ export class NetworkMonitor {
 
       // max error & restart networking service
       if (this.times.error > this.MAXERROR && this.times.restart < this.MAXRESTART) {
-
+        // reset error times
+        this.times.error = 0;
         // log this warn
         this.logger.warn(`restart networking service for the ${++this.times.restart} times`);
-        // this.logger.debug(execSync('sudo systemctl restart networking'));
-        this.logger.debug('restarting service...');
-
+        this.logger.debug('restarting network service...\n');
+        exec('sudo systemctl restart networking');
       } else if (this.times.error > this.MAXERROR) { // restart times > max restart limit
-
         this.logger.error('Not able to restart service, try to solve it with yourself.');
-
+        setTimeout(() => process.exit(1), 1000);
       }
 
-    } else if (!(this.times.total % 3)) { // log the network state every 60 times
+    } else { // reset error times
+      this.times.error = 0;
+    }
+    if (!(this.times.total % 60)) { // log the network state every 60 times
       const infos = await networkInterfaces();
       infos.forEach(
         (info, index) =>
@@ -91,4 +93,4 @@ export class NetworkMonitor {
 
 }
 
-new NetworkMonitor().run();
+new NetworkMonitor(3, 3, '192.168.0.2', 1).run();
