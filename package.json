@@ -1,5 +1,5 @@
 {
-  "name": "@iinfinity/auto-wifi",
+  "name": "@iinfinity/network-monitor",
   "version": "0.0.0",
   "description": "TypeScript Template Porject.",
   "main": "dist/index.js",
