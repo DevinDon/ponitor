@@ -1,0 +1,57 @@
+{
+  "name": "@iinfinity/auto-wifi",
+  "version": "0.0.0",
+  "description": "TypeScript Template Porject.",
+  "main": "dist/index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "src/demo",
+    "test": "src/test"
+  },
+  "files": [
+    "dist",
+    "docs"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "sh -c 'rm -rf dist out temp'",
+    "debug": "node --inspect-brk -r ts-node/register src/main/index.ts",
+    "dev": "cross-env MODE=DEV node -r ts-node/register src/main/index.ts",
+    "pack": "webpack --config webpack.prod.js",
+    "prepublishOnly": "npm run clean && npm run build",
+    "prod": "cross-env MODE=PROD node dist",
+    "start": "npm run dev",
+    "test": "node node_modules/jasmine/bin/jasmine.js --config=src/test/jasmine.json --reporter=jasmine-console-reporter --require=ts-node/register"
+  },
+  "keywords": [
+    "typescript",
+    "project"
+  ],
+  "author": "IInfinity <I.INF@Outlook.com> (https://blog.don.red/)",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jasmine": "3.5.10",
+    "@types/node": "13.13.2",
+    "@typescript-eslint/eslint-plugin": "2.29.0",
+    "@typescript-eslint/parser": "2.29.0",
+    "cross-env": "7.0.2",
+    "eslint": "6.8.0",
+    "jasmine": "3.5.0",
+    "jasmine-console-reporter": "3.1.0",
+    "ts-loader": "7.0.1",
+    "ts-node": "8.9.0",
+    "typescript": "3.8.3",
+    "webpack": "4.43.0",
+    "webpack-cli": "3.3.11"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevinDon/ts-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DevinDon/ts-template/issues"
+  },
+  "homepage": "https://github.com/DevinDon/ts-template"
+}
