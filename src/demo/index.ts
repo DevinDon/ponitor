@@ -1,3 +1,3 @@
-import { hello } from '../main';
+import { NetworkMonitor } from '../main';
 
-console.log(hello('TypeScript template'));
+new NetworkMonitor().run();
