@@ -57,9 +57,20 @@ export class NetworkMonitor {
 
       }
 
-    } else if (!(this.times.total % 60)) { // log the network state every 60 times
-      networkInterfaces()
-        .then(info => this.logger.info('network interfaces detail\n', info));
+    } else if (!(this.times.total % 3)) { // log the network state every 60 times
+      const infos = await networkInterfaces();
+      infos.forEach(
+        (info, index) =>
+          this.logger.info(`network interfaces report, ${index + 1} in ${infos.length}
+            iface: ${info.ifaceName}
+            IPv4: ${info.ip4}
+            IPv6: ${info.ip6}
+            Internal: ${info.internal}
+            Virtual: ${info.virtual}
+            State: ${info.operstate}
+            Type: ${info.type}`)
+      );
+      this.logger.info('network interfaces report over');
     }
 
   }
