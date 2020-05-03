@@ -8,19 +8,35 @@ export interface Times {
   restart: number;
 }
 
+export interface Option {
+  maxError: number;
+  maxRestart: number;
+  host: string;
+  interval: number;
+}
+
 export class NetworkMonitor {
+
+  private readonly MAXERROR: number;
+  private readonly MAXRESTART: number;
+  private readonly HOST: string;
+  private readonly INTERVAL: number;
 
   /** Logger */
   private logger: Logger;
   /** 次数 */
   private times: Times;
 
-  constructor(
-    private readonly MAXERROR: number = 3,
-    private readonly MAXRESTART: number = 3,
-    private readonly HOST: string = '192.168.0.1',
-    private readonly INTERVAL: number = 10
-  ) {
+  constructor(option: Option = {
+    maxError: 3,
+    maxRestart: 3,
+    host: '192.168.0.1',
+    interval: 10
+  }) {
+    this.MAXERROR = option.maxError || 3;
+    this.MAXRESTART = option.maxRestart || 3;
+    this.HOST = option.host || '192.168.0.1';
+    this.INTERVAL = option.interval || 10;
     this.logger = new Logger({
       name: 'system',
       stdout: process.stdout,
@@ -92,5 +108,3 @@ export class NetworkMonitor {
   }
 
 }
-
-new NetworkMonitor(3, 3, '192.168.0.2', 1).run();
