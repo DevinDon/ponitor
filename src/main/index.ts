@@ -21,7 +21,13 @@ export class NetworkMonitor {
     private readonly HOST: string = '192.168.0.1',
     private readonly INTERVAL: number = 10
   ) {
-    this.logger = new Logger({ name: 'system', stdout: process.stdout, fileout: 'network.log' });
+    this.logger = new Logger({
+      name: 'system',
+      stdout: process.stdout,
+      stderr: process.stderr,
+      fileout: 'network.log',
+      fileerr: 'network.log'
+    });
     this.times = {
       total: 0,
       error: 0,
