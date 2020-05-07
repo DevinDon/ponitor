@@ -13,7 +13,7 @@ function _externals() {
 const externals = _externals();
 
 module.exports = {
-  entry: './src/demo/index.ts',
+  entry: './src/main/index.ts',
   mode: 'production',
   // devtool: 'inline-source-map',
   module: {
