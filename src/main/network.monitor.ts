@@ -92,7 +92,7 @@ export class NetworkMonitor {
   }
 
   run() {
-    logger.info('network monitor starting');
+    logger.info('network monitor starting...');
     const ping = exec(`ping -i ${this.INTERVAL} ${this.HOST}`).stdout;
     ping?.on('data', data => this.handle(data));
     ping?.on('error', error => logger.error('exec error:', error));

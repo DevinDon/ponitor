@@ -1,3 +1,5 @@
-import { NetworkMonitor } from '../main';
+import { MemoryMonitor } from '../main';
 
-new NetworkMonitor().run();
+new MemoryMonitor().run();
+
+// new NetworkMonitor().run();

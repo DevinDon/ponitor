@@ -12,6 +12,8 @@ export class MemoryMonitor {
 
   run() {
 
+    logger.info('memory monitor starting...');
+
     // per 10 seconds
     setTimeout(async () => {
 
@@ -26,6 +28,8 @@ export class MemoryMonitor {
       }
 
     }, 10 * 1000);
+
+    logger.info('memory monitor started');
 
   }
 
