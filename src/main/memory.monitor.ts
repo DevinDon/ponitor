@@ -15,7 +15,7 @@ export class MemoryMonitor {
     logger.info('memory monitor starting...');
 
     // per 10 seconds
-    setTimeout(async () => {
+    setInterval(async () => {
 
       /** Free memory */
       const free = await this.getFree();
@@ -34,5 +34,3 @@ export class MemoryMonitor {
   }
 
 }
-
-new MemoryMonitor().run();
