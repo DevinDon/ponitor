@@ -1,6 +1,6 @@
-import { Logger } from '@iinfinity/logger';
 import { exec } from 'child_process';
 import { networkInterfaces } from 'systeminformation';
+import { logger } from './logger';
 
 export interface Times {
   total: number;
@@ -23,8 +23,6 @@ export class NetworkMonitor {
   private readonly HOST: string;
   private readonly INTERVAL: number;
 
-  /** Logger */
-  private logger: Logger;
   /** 次数 */
   private times: Times;
 
@@ -38,13 +36,6 @@ export class NetworkMonitor {
     this.MAXRESTART = option.maxRestart || 3;
     this.HOST = option.host || '192.168.0.1';
     this.INTERVAL = option.interval || 10;
-    this.logger = new Logger({
-      name: 'system',
-      stdout: process.stdout,
-      stderr: process.stderr,
-      fileout: 'network.log',
-      fileerr: 'network.log'
-    });
     this.times = {
       total: 0,
       error: 0,
@@ -64,18 +55,18 @@ export class NetworkMonitor {
     if (key !== '6' && key !== 'P') {
 
       // log this warn
-      this.logger.warn(`host reply error for the ${++this.times.error} times`);
+      logger.warn(`host reply error for the ${++this.times.error} times`);
 
       // max error & restart networking service
       if (this.times.error > this.MAXERROR && this.times.restart < this.MAXRESTART) {
         // reset error times
         this.times.error = 0;
         // log this warn
-        this.logger.warn(`restart networking service for the ${++this.times.restart} times`);
-        this.logger.debug('restarting network service...\n');
+        logger.warn(`restart networking service for the ${++this.times.restart} times`);
+        logger.debug('restarting network service...\n');
         exec('sudo systemctl restart networking');
       } else if (this.times.error > this.MAXERROR) { // restart times > max restart limit
-        this.logger.error('Not able to restart service, try to solve it with yourself.');
+        logger.error('Not able to restart service, try to solve it with yourself.');
         setTimeout(() => process.exit(1), 1000);
       }
 
@@ -86,7 +77,7 @@ export class NetworkMonitor {
       const infos = await networkInterfaces();
       infos.forEach(
         (info, index) =>
-          this.logger.info(`network interfaces report, ${index + 1} in ${infos.length}
+          logger.info(`network interfaces report, ${index + 1} in ${infos.length}
             iface: ${info.ifaceName}
             IPv4: ${info.ip4}
             IPv6: ${info.ip6}
@@ -95,17 +86,17 @@ export class NetworkMonitor {
             State: ${info.operstate}
             Type: ${info.type}`)
       );
-      this.logger.info('network interfaces report over');
+      logger.info('network interfaces report over');
     }
 
   }
 
   run() {
-    this.logger.info('network monitor starting');
+    logger.info('network monitor starting');
     const ping = exec(`ping -i ${this.INTERVAL} ${this.HOST}`).stdout;
     ping?.on('data', data => this.handle(data));
-    ping?.on('error', error => this.logger.error('exec error:', error));
-    this.logger.info('network monitor started');
+    ping?.on('error', error => logger.error('exec error:', error));
+    logger.info('network monitor started');
   }
 
 }
