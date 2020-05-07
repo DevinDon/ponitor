@@ -15,7 +15,8 @@
         "--require=ts-node/register",
       ],
       "sourceMaps": true,
-      "protocol": "inspector"
+      "protocol": "inspector",
+      "runtimeExecutable": "/home/pi/.nvm/versions/node/v14.2.0/bin/node"
     },
     {
       "type": "node",
@@ -30,7 +31,8 @@
       "sourceMaps": true,
       "protocol": "inspector",
       "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
+      "internalConsoleOptions": "neverOpen",
+      "runtimeExecutable": "/home/pi/.nvm/versions/node/v14.2.0/bin/node"
     }
   ]
 }
