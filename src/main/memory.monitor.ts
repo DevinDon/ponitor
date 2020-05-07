@@ -4,6 +4,8 @@ import { logger } from './logger';
 
 export class MemoryMonitor {
 
+  private times: number = 0;
+
   constructor() { }
 
   async getFree() {
@@ -25,6 +27,11 @@ export class MemoryMonitor {
         logger.warn(`Free Memory: ${free} MB`);
         execSync('sync; echo 1 | sudo tee /proc/sys/vm/drop_caches');
         logger.info(`Free Memory: ${await this.getFree()}`);
+      }
+
+      // log memory every 60 times
+      if (this.times++ % 60 === 0) {
+        logger.info(`Free Memory: ${free} MB`);
       }
 
     }, 10 * 1000);
