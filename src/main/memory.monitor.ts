@@ -26,7 +26,7 @@ export class MemoryMonitor {
       if (free < 100) {
         logger.warn(`Free Memory: ${free} MB`);
         execSync('sync; echo 1 | sudo tee /proc/sys/vm/drop_caches');
-        logger.info(`Free Memory: ${await this.getFree()}`);
+        logger.info(`Free Memory: ${await this.getFree()} MB`);
       }
 
       // log memory every 60 times
