@@ -1,5 +1,10 @@
 import { MemoryMonitor } from '../main';
+import { logger } from '../main/logger';
 
-new MemoryMonitor().run();
+try {
+  new MemoryMonitor().run();
+} catch (error) {
+  logger.error(error);
+}
 
 // new NetworkMonitor().run();
