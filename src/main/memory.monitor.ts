@@ -1,12 +1,14 @@
 import { execSync } from 'child_process';
 import { mem } from 'systeminformation';
-import { logger } from './logger';
+import { checkLogDir, logger } from './logger';
 
 export class MemoryMonitor {
 
   private times: number = 0;
 
-  constructor() { }
+  constructor() {
+    checkLogDir();
+  }
 
   async getFree() {
     return Math.round((await mem()).free / 1024 / 1024);
@@ -14,7 +16,7 @@ export class MemoryMonitor {
 
   run() {
 
-    logger.info('memory monitor starting...');
+    logger.info('Memory monitor starting...');
 
     // per 10 seconds
     setInterval(async () => {
@@ -34,9 +36,9 @@ export class MemoryMonitor {
         logger.info(`Free Memory: ${free} MB`);
       }
 
-    }, 10 * 1000);
+    }, 30 * 60 * 1000);
 
-    logger.info('memory monitor started');
+    logger.info('Memory monitor started.');
 
   }
 

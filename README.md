@@ -1,6 +1,6 @@
-# TS Template
+# Pointor
 
-TypeScript Template Porject.
+Pretty Monitor.
 
 # [THE MIT LICENSE](https://raw.githubusercontent.com/DevinDon/license/master/THE%20MIT%20LICENSE)
 

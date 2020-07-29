@@ -55,15 +55,15 @@ export class NetworkMonitor {
     if (key !== '6' && key !== 'P') {
 
       // log this warn
-      logger.warn(`host reply error for the ${++this.times.error} times`);
+      logger.warn(`Host reply error for the ${++this.times.error} times.`);
 
       // max error & restart networking service
       if (this.times.error > this.MAXERROR && this.times.restart < this.MAXRESTART) {
         // reset error times
         this.times.error = 0;
         // log this warn
-        logger.warn(`restart networking service for the ${++this.times.restart} times`);
-        logger.debug('restarting network service...\n');
+        logger.warn(`Restart networking service for the ${++this.times.restart} times.`);
+        logger.debug('Restarting network service...\n');
         exec('sudo systemctl restart networking');
       } else if (this.times.error > this.MAXERROR) { // restart times > max restart limit
         logger.error('Not able to restart service, try to solve it with yourself.');
@@ -77,7 +77,7 @@ export class NetworkMonitor {
       const infos = await networkInterfaces();
       infos.forEach(
         (info, index) =>
-          logger.info(`network interfaces report, ${index + 1} in ${infos.length}
+          logger.info(`Network interfaces report, ${index + 1} in ${infos.length}
             iface: ${info.ifaceName}
             IPv4: ${info.ip4}
             IPv6: ${info.ip6}
@@ -86,17 +86,17 @@ export class NetworkMonitor {
             State: ${info.operstate}
             Type: ${info.type}`)
       );
-      logger.info('network interfaces report over');
+      logger.info('Network interfaces report over.');
     }
 
   }
 
   run() {
-    logger.info('network monitor starting...');
+    logger.info('Network monitor starting...');
     const ping = exec(`ping -i ${this.INTERVAL} ${this.HOST}`).stdout;
     ping?.on('data', data => this.handle(data));
     ping?.on('error', error => logger.error('exec error:', error));
-    logger.info('network monitor started');
+    logger.info('Network monitor started.');
   }
 
 }
