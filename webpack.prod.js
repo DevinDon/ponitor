@@ -29,8 +29,8 @@ module.exports = {
     extensions: ['.ts', '.js']
   },
   output: {
-    filename: 'index.js',
-    path: path.resolve(__dirname, 'dist')
+    filename: 'pointor.js',
+    path: path.resolve(__dirname, 'bin')
   },
   node: {
     console: false,
