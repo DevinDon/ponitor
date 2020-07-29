@@ -3,4 +3,5 @@
 /coverage
 /package-lock.json
 /out
-*.log
+/temp
+/log
